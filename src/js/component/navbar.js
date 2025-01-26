@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../img/StarWarsLogo.png";
 import Favorites from "./Favorites.jsx";
 import { Context } from "../store/appContext.js";
+import "../../styles/Navbar.css";
 
 export const Navbar = () => {
 

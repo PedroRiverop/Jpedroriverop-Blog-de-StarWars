@@ -1,0 +1,33 @@
+.overflow-container {
+    width: 100%; 
+    max-width: 95vw; 
+    height: 500px; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    display: flex;
+    gap: 15px; 
+    padding: 15px; 
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0); 
+    margin: auto;
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    scroll-behavior: smooth; 
+    transition: background-color 0.3s ease-in-out;
+}
+
+.overflow-container:hover {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0); 
+}
+
+.overflow-container::-webkit-scrollbar {
+    height: 10px; 
+}
+
+.overflow-container::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+
+.overflow-container::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}

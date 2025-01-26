@@ -77,15 +77,15 @@ export const Home = () => {
 			  </div>
 			</div>
 		  ) : (
-			renderCards(store.characterDetails, characterBodyBuilder, "characters")
+			renderCards(store.peopleDetails, characterBodyBuilder, "people")
 		  )}
 		</div>
   
 		<h1 className="text-danger fw-bold ms-3">Planets</h1>
 		<div className="overflow-container mb-3">
-		  {store.planetDetails.length === 0
+		  {store.planetsDetails.length === 0
 			? "Loading Content"
-			: renderCards(store.planetDetails, planetBodyBuilder, "planets")}
+			: renderCards(store.planetsDetails, planetBodyBuilder, "planets")}
 		</div>
   
 		<h1 className="text-danger fw-bold ms-3">Films</h1>

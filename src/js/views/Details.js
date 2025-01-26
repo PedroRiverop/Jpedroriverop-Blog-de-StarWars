@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import Jumbotron from "../component/Jumbotron.jsx";
 import { Context } from "../store/appContext.js";
+import "../../styles/Details.css";
 
 const Details = () => {
   const { type, id } = useParams();
@@ -13,42 +14,42 @@ const Details = () => {
     if (!detailData || !detailData.properties) return null;
 
     const { properties } = detailData;
-    if (type === "characters") {
+    if (type === "people") {
       return (
         <>
-          <div className="col"><strong>Name</strong><br />{properties.name}</div>
-          <div className="col"><strong>Birth Year</strong><br />{properties.birth_year}</div>
-          <div className="col"><strong>Gender</strong><br />{properties.gender}</div>
-          <div className="col"><strong>Height</strong><br />{properties.height}</div>
-          <div className="col"><strong>Skin Color</strong><br />{properties.skin_color}</div>
-          <div className="col"><strong>Eye Color</strong><br />{properties.eye_color}</div>
-        </>
+          <div className="spec-item"><strong>Name:</strong> {properties.name}</div>
+          <div className="spec-item"><strong>Birth Year:</strong> {properties.birth_year}</div>
+          <div className="spec-item"><strong>Gender:</strong> {properties.gender}</div>
+          <div className="spec-item"><strong>Height:</strong> {properties.height}</div>
+          <div className="spec-item"><strong>Skin Color:</strong> {properties.skin_color}</div>
+          <div className="spec-item"><strong>Eye Color:</strong> {properties.eye_color}</div>
+      </>
       );
     }
 
     if (type === "planets") {
       return (
         <>
-          <div className="col"><strong>Name</strong><br />{properties.name}</div>
-          <div className="col"><strong>Diameter</strong><br />{properties.diameter}</div>
-          <div className="col"><strong>Population</strong><br />{properties.population}</div>
-          <div className="col"><strong>Climate</strong><br />{properties.climate}</div>
-          <div className="col"><strong>Terrain</strong><br />{properties.terrain}</div>
-          <div className="col"><strong>Gravity</strong><br />{properties.gravity}</div>
-          <div className="col"><strong>Surface Water</strong><br />{properties.surface_water}</div>
-        </>
+        <div className="spec-item"><strong>Name:</strong> {properties.name}</div>
+        <div className="spec-item"><strong>Diameter:</strong> {properties.diameter}</div>
+        <div className="spec-item"><strong>Population:</strong> {properties.population}</div>
+        <div className="spec-item"><strong>Climate:</strong> {properties.climate}</div>
+        <div className="spec-item"><strong>Terrain:</strong> {properties.terrain}</div>
+        <div className="spec-item"><strong>Gravity:</strong> {properties.gravity}</div>
+        <div className="spec-item"><strong>Surface Water:</strong> {properties.surface_water}</div>
+      </>
       );
     }
 
     if (type === "films") {
       return (
         <>
-          <div className="col"><strong>Title</strong><br />{properties.title}</div>
-          <div className="col"><strong>Director</strong><br />{properties.director}</div>
-          <div className="col"><strong>Producer</strong><br />{properties.producer}</div>
-          <div className="col"><strong>Release Date</strong><br />{properties.release_date}</div>
-          <div className="col"><strong>Episode</strong><br />{properties.episode_id}</div>
-        </>
+          <div className="spec-item"><strong>Title:</strong> {properties.title}</div>
+          <div className="spec-item"><strong>Director:</strong> {properties.director}</div>
+          <div className="spec-item"><strong>Producer:</strong> {properties.producer}</div>
+          <div className="spec-item"><strong>Release Date:</strong> {properties.release_date}</div>
+          <div className="spec-item"><strong>Episode:</strong> {properties.episode_id}</div>
+      </>
       );
     }
     return null;
@@ -58,7 +59,7 @@ const Details = () => {
     if (!type || !id) return;
 
     setLoading(true);
-    const resourceType = type === "characters" ? "people" : type;
+    const resourceType = type === "people" ? "people" : type;
     const resource = store[`${resourceType}Details`]?.find((item) => item.uid === id);
     setDetailData(resource || {});
     setLoading(false);

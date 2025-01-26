@@ -1,0 +1,16 @@
+.spec-item {
+    flex: 1 1 30%; 
+    background: #ecf0f1; 
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .spec-item:hover {
+    transform: translateY(-5px); 
+    background-color: #f1c40f; 
+    color: #fff; 
+  }
+  

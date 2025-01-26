@@ -7,9 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 		favorites: [],
 		people: [],
 		planets: [],
-		characterDetails: [],
+		peopleDetails: [],
 		filmDetails: [],
-		planetDetails: [],
+		planetsDetails: [],
     },
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -20,6 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				if (localData) {
 				  console.log(`Datos de ${endpoint} cargados desde Local Storage.`);
+				  //console.log(localData);
 				  const parsedData = JSON.parse(localData);
 				  setStore({ [endpoint]: parsedData });
 				  return parsedData;
@@ -82,6 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const localDetails = storage.getItem(`${storeInfo}Details`);
 				if (localDetails) {
 				  console.log(`Detalles de ${storeInfo} cargados desde Local Storage.`);
+				  console.log(localDetails);
 				  setStore({ [`${storeInfo}Details`]: JSON.parse(localDetails) });
 				  return;
 				}

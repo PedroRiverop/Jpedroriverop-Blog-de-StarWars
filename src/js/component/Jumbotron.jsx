@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "../../styles/CardInfo.css";
+import "../../styles/Jumbotron.css";
 
 const Jumbotron = ({ title, text, type, uid, specs }) => {
   const handleImgError = (e) => {
@@ -8,13 +9,11 @@ const Jumbotron = ({ title, text, type, uid, specs }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container jumbotron-container">
       <div className="row">
         <div className="col-md-6">
           <div
-            className="image-container"
-            style={{ height: "400px", overflow: "hidden" }}
-          >
+            className="image-container" style={{ height: "400px", overflow: "hidden" }} >
             <img
               src={`https://starwars-visualguide.com/assets/img/${type}/${uid}.jpg`}
               className="card-img-top"
@@ -30,13 +29,12 @@ const Jumbotron = ({ title, text, type, uid, specs }) => {
         </div>
       </div>
       <div className="row mt-3">
-        <div
-          className="m-auto"
-          style={{ backgroundColor: "red", height: "2px", width: "100%" }}
-        ></div>
+      <div className="row mt-3">
+        <div className="separator"></div>
+      </div>
       </div>
       <div className="row mt-3">
-        <div className="col-12 text-danger">{specs}</div>
+        <div className="specs-container d-flex flex-wrap">{specs}</div>
       </div>
     </div>
   );
