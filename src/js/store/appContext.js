@@ -31,6 +31,20 @@ const injectContext = PassedComponent => {
 			 * state.actions.loadSomeData(); <---- calling this function from the flux.js actions
 			 *
 			 **/
+			const fetchData = async () => {
+				try {
+					await Promise.all([
+						state.actions.getCharacters(),
+						state.actions.getPlanets(),
+						state.actions.getFilms(),
+					]);
+				} catch (error) {
+					console.error("Error fetching data:", error);
+				}
+				
+			};
+			fetchData();
+
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
