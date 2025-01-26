@@ -34,9 +34,9 @@ const injectContext = PassedComponent => {
 			const fetchData = async () => {
 				try {
 					await Promise.all([
-						state.actions.getCharacters(),
-						state.actions.getPlanets(),
-						state.actions.getFilms(),
+						state.actions.loadCharacters(),
+						state.actions.loadPlanets(),
+						state.actions.loadFilms(),
 					]);
 				} catch (error) {
 					console.error("Error fetching data:", error);

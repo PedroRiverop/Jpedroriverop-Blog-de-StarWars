@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (!store.isLoading) setStore({ isLoading: true });
 		
 				try {
-				  const response = await fetch(`${BASE_URL}/${endpoint}`);
+				  const response = await fetch(`${BASEURL}/${endpoint}`);
 				  if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 		
 				  const data = await response.json();

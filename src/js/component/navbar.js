@@ -26,7 +26,7 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="me-5">
-          <Favorites favorites={store.favorites} onDelete={handleFavoriteRemove}/>
+          <Favorites favoritesList={store.favorites} onRemove={handleFavoriteRemove}/>
         </div>
       </div>
 		</nav>

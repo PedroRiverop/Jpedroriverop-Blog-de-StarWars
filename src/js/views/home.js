@@ -5,7 +5,7 @@ import CardInfo from "../component/CardInfo.jsx";
 import { Context } from "../store/appContext.js";
 
 
-const API_URL = "https://www.swapi.tech/api/people";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -66,7 +66,7 @@ export const Home = () => {
 	  <div className="mt-5 text-start">
 		<h1 className="text-danger fw-bold ms-3">Characters</h1>
 		<div className="overflow-container mb-3">
-		  {store.loading ? (
+		  {store.isLoading ? (
 			<div className="container-fluid d-flex justify-content-center align-items-center">
 			  <div
 				className="spinner-grow text-danger"
@@ -77,22 +77,22 @@ export const Home = () => {
 			  </div>
 			</div>
 		  ) : (
-			renderCards(store.peopleDetails, characterBodyBuilder, "characters")
+			renderCards(store.characterDetails, characterBodyBuilder, "characters")
 		  )}
 		</div>
   
 		<h1 className="text-danger fw-bold ms-3">Planets</h1>
 		<div className="overflow-container mb-3">
-		  {store.planetsDetails.length === 0
+		  {store.planetDetails.length === 0
 			? "Loading Content"
-			: renderCards(store.planetsDetails, planetBodyBuilder, "planets")}
+			: renderCards(store.planetDetails, planetBodyBuilder, "planets")}
 		</div>
   
 		<h1 className="text-danger fw-bold ms-3">Films</h1>
 		<div className="overflow-container mb-3">
-		  {store.filmsDetails.length === 0
+		  {store.filmDetails.length === 0
 			? "Loading Content"
-			: renderCards(store.filmsDetails, filmsBodyBuilder, "films")}
+			: renderCards(store.filmDetails, filmsBodyBuilder, "films")}
 		</div>
 	  </div>
 	);
