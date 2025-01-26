@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 		isLoading: false,
 		favorites: [],
-		characters: [],
+		people: [],
 		planets: [],
 		characterDetails: [],
 		filmDetails: [],
@@ -42,18 +42,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			  },
 		
-			  loadCharacters: async () => {
+			loadCharacters: async () => {
 				const actions = getActions();
 				try {
 				  const characterData = await actions.fetchData("people");
 				  setStore({ characters: characterData });
-				  actions.loadDetails("characters");
+				  actions.loadDetails("people");
 				} catch (error) {
 				  console.error("Error al cargar personajes:", error);
 				}
 			  },
 		
-			  loadPlanets: async () => {
+			loadPlanets: async () => {
 				const actions = getActions();
 				try {
 				  const planetData = await actions.fetchData("planets");
@@ -64,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			  },
 		
-			  loadFilms: async () => {
+			loadFilms: async () => {
 				const actions = getActions();
 				try {
 				  const filmData = await actions.fetchData("films");
@@ -74,46 +74,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			  },
 		
-			  loadDetails: async (type) => {
+			  loadDetails: async (storeInfo) => {
 				const store = getStore();
-				const localDetails = localStorage.getItem(`${type}Details`);
-		
-				
+				const storage = window.localStorage;
+			  
+				// Verificar si los detalles ya están en localStorage
+				const localDetails = storage.getItem(`${storeInfo}Details`);
 				if (localDetails) {
-				  console.log(`Detalles de ${type} cargados desde Local Storage.`);
-				  setStore({ [`${type}Details`]: JSON.parse(localDetails) });
+				  console.log(`Detalles de ${storeInfo} cargados desde Local Storage.`);
+				  setStore({ [`${storeInfo}Details`]: JSON.parse(localDetails) });
 				  return;
 				}
-		
-				
-				const resources = store[type === "characters" ? "characters" : type];
-				const fetchUrls = resources.map((resource) => resource.url);
-		
-				
+			  
+				// Obtener los recursos desde el estado
+				const resourceKey = storeInfo === "people" ? "people" : storeInfo;
+				const resources = store[resourceKey];
+			  
+				// Validar que existan recursos
+				if (!resources || !Array.isArray(resources)) {
+				  console.error(`No hay recursos disponibles para ${storeInfo}.`);
+				  return;
+				}
+			  
+				// Construir las promesas para obtener detalles
 				try {
-				  const detailRequests = fetchUrls.map(async (url) => {
-					const response = await fetch(url);
-					if (!response.ok) throw new Error(`Error: ${response.statusText}`);
-					const data = await response.json();
-					return data.result;
+				  const detailPromises = resources.map(async (item) => {
+					try {
+					  const response = await fetch(item.url);
+					  if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+					  const data = await response.json();
+					  return data.result;
+					} catch (error) {
+					  console.error(`Error al obtener detalles de ${storeInfo}:`, error);
+					}
 				  });
-		
-				  const details = await Promise.all(detailRequests);
-				  setStore({ [`${type}Details`]: details });
-				  localStorage.setItem(`${type}Details`, JSON.stringify(details));
+			  
+				  // Resolver todas las promesas
+				  const resolvedDetails = (await Promise.all(detailPromises)).filter(Boolean);
+			  
+				  // Actualizar el estado y guardar en localStorage
+				  setStore({ [`${storeInfo}Details`]: resolvedDetails });
+				  storage.setItem(`${storeInfo}Details`, JSON.stringify(resolvedDetails));
 				} catch (error) {
-				  console.error(`Error al cargar detalles de ${type}:`, error);
+				  console.error(`Error al cargar detalles de ${storeInfo}:`, error);
 				}
 			  },
 		
-			  addFavorite: (item) => {
+			addFavorite: (item) => {
 				const store = getStore();
 				if (!store.favorites.some((fav) => fav.uid === item.uid)) {
 				  setStore({ favorites: [...store.favorites, item] });
 				}
 			  },
 		
-			  removeFavorite: (uid, category) => {
+			removeFavorite: (uid, category) => {
 				const store = getStore();
 				const updatedFavorites = store.favorites.filter(
 				  (fav) => fav.uid !== uid || fav.type !== category
